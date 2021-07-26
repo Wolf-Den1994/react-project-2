@@ -4,9 +4,9 @@ import './post-list.css';
 
 import PostListItem from '../post-list-item';
 
-const PostList = ({ posts, onDelete }) => {
+const PostList = ({ posts, onDelete, onToggleImportant, onToggleLiked }) => {
   const isEmpty = (obj) => {
-    for(let key in obj) {
+    for (let key in obj) {
       return true;
     }
     return false;
@@ -22,7 +22,10 @@ const PostList = ({ posts, onDelete }) => {
             // {...itemProps}
             label={item.label}
             important={item.important}
+            like={item.like}
             onDelete={() => onDelete(id)}
+            onToggleImportant={() => onToggleImportant(id)}
+            onToggleLiked={() => onToggleLiked(id)}
           />
         </li>
       );
