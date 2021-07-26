@@ -86,12 +86,15 @@ export default class App extends Component {
     });
   }
 
-  onToggleImportant(id) {
+  onChangeState(id, how) {
     this.setState(({ data }) => {
       const index = data.findIndex((elem) => elem.id === id);
 
       const old = data[index];
-      const newItem = { ...old, important: !old.important };
+      const newItem =
+        how === 'like'
+          ? { ...old, like: !old.like }
+          : { ...old, important: !old.important };
 
       const before = data.slice(0, index);
       const after = data.slice(index + 1);
@@ -104,22 +107,12 @@ export default class App extends Component {
     });
   }
 
+  onToggleImportant(id) {
+    this.onChangeState(id, 'important');
+  }
+
   onToggleLiked(id) {
-    this.setState(({ data }) => {
-      const index = data.findIndex((elem) => elem.id === id);
-
-      const old = data[index];
-      const newItem = { ...old, like: !old.like };
-
-      const before = data.slice(0, index);
-      const after = data.slice(index + 1);
-
-      const newArr = [...before, newItem, ...after];
-
-      return {
-        data: newArr,
-      };
-    });
+    this.onChangeState(id, 'like');
   }
 
   searchPost(items, term) {
