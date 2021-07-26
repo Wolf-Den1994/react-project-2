@@ -4,6 +4,7 @@ import SearchPanel from '../search-panel';
 import PostStatusFilter from '../post-status-filter';
 import PostList from '../post-list';
 import PostAddForm from '../post-add-form';
+import nextId from 'react-id-generator';
 import './app.css';
 // import style from './App.module.css'
 import styled from 'styled-components';
@@ -29,7 +30,6 @@ export default class App extends Component {
     };
     this.deleteItem = this.deleteItem.bind(this);
     this.addItem = this.addItem.bind(this);
-    this.maxId = 4;
   }
 
   deleteItem(id) {
@@ -54,11 +54,12 @@ export default class App extends Component {
     const newItem = {
       label: body,
       important: false,
-      id: this.maxId++,
+      id: nextId(),
     };
 
     this.setState(({ data }) => {
       const newArr = [...data, newItem];
+      console.log(newArr);
       return {
         data: newArr,
       };
